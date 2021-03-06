@@ -45,20 +45,38 @@ var displayCurrentWeather = function (currentWeather, searchTerm) {
     var cityName = currentWeather.name
 
     // create a span element to hold city name
-    var nameEl = document.createElement("span");
+    var nameEl = document.createElement("div");
     nameEl.textContent = `${cityName}: `;
 
     // format current conditions
     var currentConditions = `${currentWeather.weather[0].main} (${currentWeather.weather[0].description})`;
 
     // create conditions element
-    var conditionsEl = document.createElement("span");
+    var conditionsEl = document.createElement("div");
     conditionsEl.classList = "lead";
     conditionsEl.textContent = currentConditions;
+
+    var tempEl = document.createElement("p");
+    var currentTemp = (((9/5)*(currentWeather.main.temp-273))+32).toFixed(1);
+    tempEl.classList = "small";
+    tempEl.textContent = `Current temperature is ${currentTemp} degrees (F)`;
+
+    var humidityEl = document.createElement("p");
+    var humidity = currentWeather.main.humidity;
+    humidityEl.classList = "small";
+    humidityEl.textContent = `${humidity}% humidity`;
+
+    var windEl = document.createElement("p");
+    var windSpeed = currentWeather.wind.speed;
+    windEl.classList = "small";
+    windEl.textContent = `Current wind speed is ${windSpeed} meters/second`;
 
     // append to container
     weatherContainerEl.appendChild(nameEl);
     weatherContainerEl.appendChild(conditionsEl);
+    weatherContainerEl.appendChild(tempEl);
+    weatherContainerEl.appendChild(humidityEl);
+    weatherContainerEl.appendChild(windEl);
 };
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
